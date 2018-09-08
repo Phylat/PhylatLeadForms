@@ -1,0 +1,18 @@
+serve - serve whole app - dev
+build - build for productiong
+
+vue library - component libraries donsnt include vue framework
+
+vue build --target lib
+
+
+
+web component - 
+
+vue build --target wc
+
+
+
+
+------------
+vue build hello.vue --app

@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "wcbuildtemp": "vue-cli-service build --target wc --name my-custom-element ./src/main.js",
+    "wcbuild": "vue-cli-service build --target wc --name my-custom-element ./src/App.vue",
+    "singlewebcomponent": "vue-cli-service build --target wc --name my-element src/components/auth/Signup.vue"
   },
   "dependencies": {
     "register-service-worker": "^1.0.0",
