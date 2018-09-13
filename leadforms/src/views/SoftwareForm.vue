@@ -5,7 +5,7 @@
             <div v-if="step === 1" class="wrapper">
 
                 <h1>Step One</h1>
-
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                 <label>name</label>
                 <AppControlInput :inputClass="inputClass" type="text" placeholder="mame" v-model="name"></AppControlInput>
 
