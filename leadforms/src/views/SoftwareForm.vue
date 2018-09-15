@@ -49,6 +49,10 @@
                 <button class="button" @click.prevent="submit">Save</button>
 
             </div>
+            <!--hpot-->
+<AppControlInput :inputClass="hpot" style="display:none;" type="text" placeholder="hpotval" v-model="hpotval"></AppControlInput>
+
+            <!--hpot-->
         </form>
 
     </div>
@@ -56,67 +60,69 @@
 </template>
 
 <script>
-    import AppControlInput from "@/components/UI/Forms/AppControlInput.vue";
-    import AppSelectInput from "@/components/UI/Forms/AppSelectInput.vue";
-    const fb = require("@/services/firebase/init.js");
+import AppControlInput from "@/components/UI/Forms/AppControlInput.vue";
+import AppSelectInput from "@/components/UI/Forms/AppSelectInput.vue";
+const fb = require("@/services/firebase/init.js");
 
-    export default {
-      name: "home",
-      data() {
-        return {
-          trackVisId: "randomevisitorid",
-          step: 1,
-          inputClass: "casdasd",
-          loading: false,
-          name: null,
-          email: null,
-          registration: {
-            name: null,
-            email: null,
-            street: null,
-            city: null,
-            state: null,
-            numtickets: 0,
-            shirtsize: "XL"
-          }
-        };
-      },
-      components: {
-        AppControlInput,
-        AppSelectInput
-      },
-      methods: {
-        prev() {
-          this.step--;
-        },
-        next() {
-          this.step++;
-        },
-        submit() {
-          let visSessionId = this.trackVisId;
-          if (this.name && this.name) {
-            const timeCreated = Date.now();
-
-            fb.contactCollection
-              .doc()
-              .set({
-                session_id: visSessionId,
-                name: this.name,
-                email: this.email,
-                addDate: timeCreated
-              })
-              .then(function() {
-                console.log("Document successfully written!");
-              })
-              .catch(function(error) {
-                console.error("Error writing document: ", error);
-              });
-          } else {
-            this.errormsg = "You have to fill out all of the inputs";
-            return;
-          }
-          alert("Submit to blah and show blah and etc.");
-        }
+export default {
+  name: "home",
+  data() {
+    return {
+      trackVisId: "randomevisitorid",
+      step: 1,
+      inputClass: "casdasd",
+      loading: false,
+      name: null,
+      email: null,
+      hpot: "hiddenzzs",
+      hpotval: null,
+      registration: {
+        name: null,
+        email: null,
+        street: null,
+        city: null,
+        state: null,
+        numtickets: 0,
+        shirtsize: "XL"
       }
     };
+  },
+  components: {
+    AppControlInput,
+    AppSelectInput
+  },
+  methods: {
+    prev() {
+      this.step--;
+    },
+    next() {
+      this.step++;
+    },
+    submit() {
+      let visSessionId = this.trackVisId;
+      if (this.name && this.name && !this.hpotval) {
+        const timeCreated = Date.now();
+
+        fb.contactCollection
+          .doc()
+          .set({
+            session_id: visSessionId,
+            name: this.name,
+            email: this.email,
+            addDate: timeCreated
+          })
+          .then(function() {
+            console.log("Document successfully written!");
+          })
+          .catch(function(error) {
+            console.error("Error writing document: ", error);
+          });
+      } else {
+        this.errormsg = "You have to fill out all of the inputs";
+        return;
+      }
+      alert("Submit to blah and show blah and etc.");
+    }
+  }
+};
 </script>
