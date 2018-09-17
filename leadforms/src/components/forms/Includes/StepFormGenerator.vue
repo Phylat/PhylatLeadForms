@@ -1,21 +1,20 @@
 <template>
   <div>
-    <component v-for="(field, index) in schema"
-               :key="index"
-               :is="field.fieldType"
-               :value="formData[field.name]"
-               @input="updateForm(field.name, $event)"
-               v-bind="field">
+    <component v-for="(field, index) in schema" 
+    :key="index" :is="field.fieldType" 
+    :value="formData[field.name]" 
+    @input="updateForm(field.name, $event)"
+      v-bind="field">
     </component>
-     <div v-if="!stepButtons">
-           <button @click.prevent="prevStep(currentStep)">Previous</button>
-                <button @click.prevent="nextStep(currentStep)">Next</button>
-     </div>
-     <div v-else>
+    <div v-if="stepButtons">
+      <button @click.prevent="prevStep(currentStep)">Previous</button>
+      <button @click.prevent="nextStep(currentStep)">Next</button>
+    </div>
+    <div v-else>
 
-                <button @click.prevent="prevStep(currentStep)">Previous</button>
-                <button class="button" @click.prevent="submitForm">Save</button>
-     </div>
+      <button @click.prevent="prevStep(currentStep)">Previous</button>
+      <button class="button" @click.prevent="submitForm">Save</button>
+    </div>
   </div>
 </template>
 

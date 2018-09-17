@@ -1,9 +1,10 @@
 <template>
   <div>
-    
+    {{currentTagline}}
+    <hr/>>
     <step-form-generator 
     v-model="formData" 
-    :schema="stepReturn" 
+    :schema="currentSchema" 
     :stepButtons="stepButtons" 
     :curStep="currentStep"
     @nextStep="next"
@@ -12,9 +13,24 @@
     </step-form-generator>
    
     <p>
+        <hr/>
       {{stepReturn}}
+        <hr/>
       {{currentStep}}
-      <!--Hello {{formData.title}} {{formData.firstName}} {{formData.lastName}}, {{formData.position}} I hear you are {{formData.age}} years old.-->
+        <hr/>
+      {{stepsRemaining}}
+      <hr/>
+      <h2>Hello</h2> {{formData.firstName}} 
+      <hr />
+      <h2>so you want something developed for</h2>{{formData.platform}}, 
+      <hr />
+      <h2>Pre-existing software?</h2>{{formData.preexistingSoftware}} 
+      <hr />
+      <h2>Wow thats a great timeline of</h2>{{formData.timeline}} 
+      <hr />
+      <h2>Cheepscate your budget is only</h2>{{formData.budget}} 
+      <hr />
+      <h2>Ok I guess i'll email you at</h2>{{formData.email}}.
     </p>
   </div>
 </template>
@@ -32,9 +48,12 @@ export default {
       },
       currentStep: 1,
       stepButtons: false,
+      currentTagline: null,
+      currentSchema: null,
       stepSchema: [
         {
           step: 1,
+          TagLine: "Tell us about your project",
           schema: [
             {
               fieldType: "TextInput",
@@ -42,35 +61,17 @@ export default {
               label: "What should we call you?",
               name: "firstName"
             }
-            /*{
-              fieldType: "TextInput",
-              placeholder: "Last Name",
-              label: "Last Name",
-              name: "lastName"
-            },
-           {
-              fieldType: "NumberInput",
-              placeholder: "Age",
-              name: "age",
-              label: "Age",
-              minValue: 0
-            }
-            {
-              fieldType: "SelectList",
-              name: "title",
-              multi: false,
-              label: "Title",
-              options: ["", "Mr", "Ms", "Mx", "Dr", "Madam", "Lord"]
-            },*/
           ]
         },
         {
           step: 2,
+          //Todo
+          TagLine: "Thanks now some details about your project",
           schema: [
             {
               fieldType: "SelectList",
               name: "platform",
-              multi: true,
+              multi: false,
               label: "What platform would you like your software to supports",
               options: [
                 "Web",
@@ -86,26 +87,27 @@ export default {
               name: "preexistingSoftware",
               multi: false,
               label: "Do you have any preexisting software?",
-              options: ["Yes", "No"]
+              options: ["", "Yes", "No"]
             }
           ]
         },
         {
           step: 3,
+          TagLine: "",
           schema: [
             {
               fieldType: "SelectList",
               name: "timeline",
               multi: false,
               label: "Do you have a timeline in mind?",
-              options: ["ASAP", "0-6 Months", "1-2 Years", "Not Sure"]
+              options: ["", "ASAP", "0-6 Months", "1-2 Years", "Not Sure"]
             },
             {
               fieldType: "SelectList",
               name: "budget",
               multi: false,
-              label: "Do you have a budget for this project?",
-              options: ["0-5k", "5-20k", "10-25k", "Not Sure"]
+              label: "What is your budget?",
+              options: ["", "0-5k", "5-20k", "10-25k", "Not Sure"]
             }
           ]
         },
@@ -125,10 +127,10 @@ export default {
   },
   methods: {
     prev() {
-      this.step--;
+      this.currentStep--;
     },
     next() {
-      this.step++;
+      this.currentStep++;
     },
 
     submit() {
@@ -159,10 +161,6 @@ export default {
   },
   computed: {
     stepReturn() {
-      /*const officersIds = this.stepSchema.map(officer => officer.schema).filter(officersIds => {
-        return officersIds.step === 1;
-      });
-      console.log(formprocess);*/
       let curStep = this.currentStep;
       let formprocess = this.stepSchema;
 
@@ -171,12 +169,31 @@ export default {
           return forminputs.step === curStep;
         })
         .map(function(formins) {
-          return formins.schema;
+          return formins;
         });
       console.log(processedForm);
-      return processedForm[0];
+      this.currentSchema = processedForm[0].schema;
+      this.currentTagline = processedForm[0].TagLine;
 
-      //console.log(formprocess);
+      return processedForm[0];
+    },
+
+    stepsRemaining() {
+      var currentLength = this.currentStep;
+      var totalLength = this.stepSchema.length;
+      const stepCounter = false;
+
+      if (totalLength > currentLength) {
+        stepCounter === true;
+        this.stepButtons = true;
+        console.log("nomoresteps");
+      } else {
+        this.stepButtons = false;
+        stepCounter == false;
+        console.log("moresteps");
+      }
+
+      return stepCounter;
     }
   }
 };
