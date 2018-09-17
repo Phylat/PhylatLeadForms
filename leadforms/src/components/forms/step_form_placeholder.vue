@@ -9,16 +9,18 @@
     :curStep="currentStep"
     @nextStep="next"
     @prevStep="prev"
-    @submitForm="submit">
+    @submitForm="submit"
+    @clickAction="clickAction"
+    :currentOptions="currentOptions">
     </step-form-generator>
-   
+    {{formData}}
      <p style="display:none;">{{stepReturn}}</p>
   </div>
 </template>
 
 <script>
 import StepFormGenerator from "@/components/forms/Includes/StepFormGenerator.vue";
-
+import { uuid } from "vue-uuid";
 export default {
   name: "StepForm",
   components: { StepFormGenerator },
@@ -28,13 +30,19 @@ export default {
         firstName: ""
       },
       currentStep: 1,
-      stepButtons: false,
+      stepButtons: true,
       currentTagline: null,
       currentSchema: null,
+      trackVisId: uuid.v1(),
+      currentOptions: null,
       stepSchema: [
         {
           step: 1,
           TagLine: "Tell us about your project",
+          buttonOptions: [
+            { text: "Previous", action: "prev" },
+            { text: "Next", action: "next" }
+          ],
           schema: [
             {
               fieldType: "TextInput",
@@ -48,6 +56,10 @@ export default {
           step: 2,
           //Todo
           TagLine: "Thanks now some details about your project",
+          buttonOptions: [
+            { text: "Previous", action: "prev" },
+            { text: "Next", action: "next" }
+          ],
           schema: [
             {
               fieldType: "SelectList",
@@ -55,12 +67,13 @@ export default {
               multi: false,
               label: "What platform would you like your software to supports",
               options: [
-                "Web",
-                "Mobile",
-                "IOT",
-                "Multiple Platforms",
-                "Other",
-                "Not Sure"
+                { option: "", score: "0" },
+                { option: "Web", score: "1" },
+                { option: "Mobile", score: "2" },
+                { option: "IOT", score: "3" },
+                { option: "Multiple Platforms", score: "4" },
+                { option: "Other", score: "1" },
+                { option: "Not Sure", score: "0" }
               ]
             },
             {
@@ -68,32 +81,57 @@ export default {
               name: "preexistingSoftware",
               multi: false,
               label: "Do you have any preexisting software?",
-              options: ["", "Yes", "No"]
+              options: [
+                { option: "", score: "0" },
+                { option: "Yes", score: "1" },
+                { option: "No", score: "2" }
+              ]
             }
           ]
         },
         {
           step: 3,
           TagLine: "",
+          buttonOptions: [
+            { text: "Previous", action: "prev" },
+            { text: "next", action: "next" }
+          ],
           schema: [
             {
               fieldType: "SelectList",
               name: "timeline",
               multi: false,
               label: "Do you have a timeline in mind?",
-              options: ["", "ASAP", "0-6 Months", "1-2 Years", "Not Sure"]
+              options: [
+                { option: "", score: "0" },
+                { option: "ASAP", score: "2" },
+                { option: "0-6 Months", score: "2" },
+                { option: "1-2 Years", score: "0" },
+                { option: "Not Sure", score: "2" }
+              ]
             },
             {
               fieldType: "SelectList",
               name: "budget",
               multi: false,
               label: "What is your budget?",
-              options: ["", "0-5k", "5-20k", "10-25k", "Not Sure"]
+              options: [
+                { option: "", score: "0" },
+                { option: "0-5k", score: "1" },
+                { option: "5-20k", score: "2" },
+                { option: "10-40k", score: "3" },
+                { option: "25k+", score: "4" },
+                { option: "Not Sure", score: "0" }
+              ]
             }
           ]
         },
         {
           step: 4,
+          buttonOptions: [
+            { text: "Previous", action: "prev" },
+            { text: "Save", action: "save" }
+          ],
           schema: [
             {
               fieldType: "TextInput",
@@ -107,6 +145,21 @@ export default {
     };
   },
   methods: {
+    clickAction(i) {
+      console.log(i);
+      //TODO Change to terrinary
+      var actionTaken = i;
+
+      if (actionTaken === "prev") {
+        return this.currentStep--;
+      } else if (actionTaken === "next") {
+        return this.currentStep++;
+      } else {
+        return this.submit();
+      }
+
+      return;
+    },
     prev() {
       this.currentStep--;
     },
@@ -115,6 +168,7 @@ export default {
     },
 
     submit() {
+      console.log(this.formData);
       let visSessionId = this.trackVisId;
       if (this.name && this.name && !this.hpotval) {
         const timeCreated = Date.now();
@@ -155,7 +209,7 @@ export default {
       console.log(processedForm);
       this.currentSchema = processedForm[0].schema;
       this.currentTagline = processedForm[0].TagLine;
-
+      this.currentOptions = processedForm[0].buttonOptions;
       return processedForm[0];
     },
 
