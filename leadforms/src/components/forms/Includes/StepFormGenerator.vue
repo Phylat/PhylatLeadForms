@@ -7,6 +7,15 @@
                @input="updateForm(field.name, $event)"
                v-bind="field">
     </component>
+     <div v-if="!stepButtons">
+           <button @click.prevent="prevStep(currentStep)">Previous</button>
+                <button @click.prevent="nextStep(currentStep)">Next</button>
+     </div>
+     <div v-else>
+
+                <button @click.prevent="prevStep(currentStep)">Previous</button>
+                <button class="button" @click.prevent="submitForm">Save</button>
+     </div>
   </div>
 </template>
 
@@ -17,7 +26,7 @@ import TextInput from "@/components/forms/Includes/TextInput";
 export default {
   name: "StepFormGenerator",
   components: { NumberInput, SelectList, TextInput },
-  props: ["schema", "value"],
+  props: ["schema", "value", "stepButtons", "currentStep"],
   data() {
     return {
       formData: this.value || {}
@@ -27,6 +36,15 @@ export default {
     updateForm(fieldName, value) {
       this.$set(this.formData, fieldName, value);
       this.$emit("input", this.formData);
+    },
+    nextStep(i) {
+      this.$emit("nextStep", i);
+    },
+    prevStep(i) {
+      this.$emit("prevStep", i);
+    },
+    submitForm() {
+      this.$emit("submitForm");
     }
   }
 };
