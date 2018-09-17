@@ -11,7 +11,8 @@
     @prevStep="prev"
     @submitForm="submit"
     @clickAction="clickAction"
-    :currentOptions="currentOptions">
+    :currentOptions="currentOptions"
+>
     </step-form-generator>
     {{formData}}
      <p style="display:none;">{{stepReturn}}</p>
