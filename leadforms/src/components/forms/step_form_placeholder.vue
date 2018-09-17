@@ -1,7 +1,7 @@
 <template>
   <div>
     {{currentTagline}}
-    <hr/>>
+    {{currentStep}}
     <step-form-generator 
     v-model="formData" 
     :schema="currentSchema" 
@@ -12,26 +12,7 @@
     @submitForm="submit">
     </step-form-generator>
    
-    <p>
-        <hr/>
-      {{stepReturn}}
-        <hr/>
-      {{currentStep}}
-        <hr/>
-      {{stepsRemaining}}
-      <hr/>
-      <h2>Hello</h2> {{formData.firstName}} 
-      <hr />
-      <h2>so you want something developed for</h2>{{formData.platform}}, 
-      <hr />
-      <h2>Pre-existing software?</h2>{{formData.preexistingSoftware}} 
-      <hr />
-      <h2>Wow thats a great timeline of</h2>{{formData.timeline}} 
-      <hr />
-      <h2>Cheepscate your budget is only</h2>{{formData.budget}} 
-      <hr />
-      <h2>Ok I guess i'll email you at</h2>{{formData.email}}.
-    </p>
+     <p style="display:none;">{{stepReturn}}</p>
   </div>
 </template>
 
