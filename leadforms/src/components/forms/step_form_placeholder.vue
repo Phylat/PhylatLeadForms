@@ -160,9 +160,9 @@
         console.log(u);
         this.totScore = u;
       },
-      subForm(i, r) {
-        let totVal = { valddasue: this.totScore };
-        console.log(totVal);
+      subForm(i) {
+        let totVal = this.totScore;
+        console.log(this.totScore);
 
         //return this.currentStep++;
         alert(totVal);
