@@ -18,7 +18,7 @@
     data() {
       return {
         formData: this.value || {},
-        totScore: this.upScored || {}
+        totScore: this.upScored || { initialS: 0 }
       };
     },
     methods: {
