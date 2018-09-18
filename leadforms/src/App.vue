@@ -1,8 +1,15 @@
 <template>
   <div id="app">
-    <router-view />
+    <step-form />
   </div>
 </template>
 
-<style>
-</style>
+<script>
+  import StepForm from "@/components/forms/step_form_placeholder.vue";
+  export default {
+    name: "Initial",
+    components: {
+      "step-form": StepForm
+    }
+  };
+</script>
