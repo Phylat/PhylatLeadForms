@@ -33,24 +33,15 @@
 
         this.$set(this.formData, fieldName, value);
         this.$set(this.sdata, fieldName, upScored);
-
+        this.$emit("sdataup", this.sdata);
         this.$emit("input", this.formData);
-      },
-      nextStep(i) {
-        this.$emit("nextStep", i);
-      },
-      prevStep(i) {
-        this.$emit("prevStep", i);
       },
       optionAction(i) {
         if (i === "save") {
-          this.$emit("saveAction", i, this.sdata);
+          this.$emit("saveAction", i);
         } else {
           this.$emit("clickAction", i);
         }
-      },
-      submitForm() {
-        this.$emit("submitForm");
       }
     }
   };
