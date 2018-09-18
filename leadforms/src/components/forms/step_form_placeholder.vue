@@ -16,9 +16,11 @@
     components: { StepFormGenerator },
     data() {
       return {
-        totScore: {
-          initialS: 0
-        },
+        totScore: [
+          {
+            initialS: 0
+          }
+        ],
         formData: {
           firstName: ""
         },

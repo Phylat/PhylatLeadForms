@@ -18,7 +18,7 @@
     data() {
       return {
         formData: this.value || {},
-        sdata: this.upScored || {}
+        totScore: this.upScored || {}
       };
     },
     methods: {
@@ -32,9 +32,9 @@
         var upScored = thefield.optionsValues[selectScore];
 
         this.$set(this.formData, fieldName, value);
-        this.$set(this.sdata, fieldName, upScored);
+        this.$set(this.totScore, fieldName, upScored);
         //this.$emit("sdataup", this.sdata);
-        this.$emit("update:foo", this.sdata);
+        this.$emit("update:foo", this.totScore);
         this.$emit("input", this.formData);
       },
       optionAction(i) {
