@@ -1,7 +1,7 @@
 <template>
   <div>
     {{currentTagline}} {{currentStep}}
-    <step-form-generator v-model="formData" @sdataup="sdataupz" :schema="currentSchema" :stepButtons="stepButtons" :curStep="currentStep" @nextStep="next" @prevStep="prev" @submitForm="submit" @clickAction="clickAction" @saveAction="subForm" @updateSelected="selectFormSearch" :currentOptions="currentOptions">
+    <step-form-generator v-model="formData" @sdataup="sdataupz" :schema="currentSchema" :foo.sync="totScore" :stepButtons="stepButtons" :curStep="currentStep" @nextStep="next" @prevStep="prev" @submitForm="submit" @clickAction="clickAction" @saveAction="subForm" @updateSelected="selectFormSearch" :currentOptions="currentOptions">
     </step-form-generator>
 
     <p style="display:none;">{{stepReturn}}</p>
@@ -16,7 +16,9 @@
     components: { StepFormGenerator },
     data() {
       return {
-        totScore: {},
+        totScore: {
+          initialS: 0
+        },
         formData: {
           firstName: ""
         },
@@ -164,6 +166,12 @@
 
         //return this.currentStep++;
         alert(totVal);
+      },
+      prev() {
+        this.currentStep--;
+      },
+      next() {
+        this.currentStep++;
       },
       submit() {
         console.log(this.formData);

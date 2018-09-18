@@ -34,6 +34,7 @@
         this.$set(this.formData, fieldName, value);
         this.$set(this.sdata, fieldName, upScored);
         this.$emit("sdataup", this.sdata);
+        this.$emit("update:foo", this.sdata);
         this.$emit("input", this.formData);
       },
       optionAction(i) {
