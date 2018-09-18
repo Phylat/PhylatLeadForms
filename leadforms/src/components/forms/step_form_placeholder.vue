@@ -1,9 +1,9 @@
 <template>
   <div>
     {{currentTagline}} {{currentStep}}
-    <step-form-generator v-model="formData" :schema="currentSchema" :stepButtons="stepButtons" :curStep="currentStep" @nextStep="next" @prevStep="prev" @submitForm="submit" @clickAction="clickAction" @updateSelected="selectFormSearch" :currentOptions="currentOptions">
+    <step-form-generator v-model="formData" :schema="currentSchema" :stepButtons="stepButtons" :curStep="currentStep" @nextStep="next" @prevStep="prev" @submitForm="submit" @clickAction="clickAction" @saveAction="subForm" @updateSelected="selectFormSearch" :currentOptions="currentOptions">
     </step-form-generator>
-    {{formData}}
+
     <p style="display:none;">{{stepReturn}}</p>
   </div>
 </template>
@@ -26,6 +26,23 @@
         trackVisId: uuid.v1(),
         currentOptions: null,
         curVal: 0,
+        leadCategories: [
+          {
+            name: "Low",
+            targetScore: 5,
+            description: "Low value"
+          },
+          {
+            name: "Medium",
+            targetScore: 10,
+            description: "Medium"
+          },
+          {
+            name: "High",
+            targetScore: 5,
+            description: "High Value call right away"
+          }
+        ],
         stepSchema: [
           {
             step: 1,
@@ -128,16 +145,19 @@
         // alert(event.target.selectedIndex);
       },
       clickAction(i) {
-        console.log(i);
         //TODO Change to terrinary
         var actionTaken = i;
         if (actionTaken === "prev") {
           return this.currentStep--;
-        } else if (actionTaken === "next") {
-          return this.currentStep++;
         } else {
-          return this.submit();
+          return this.currentStep++;
         }
+      },
+      subForm(i, r) {
+        let totVal = r;
+        console.log(r[0]);
+        //return this.currentStep++;
+        alert(r);
       },
       prev() {
         this.currentStep--;
@@ -147,6 +167,7 @@
       },
       submit() {
         console.log(this.formData);
+        console.log(event.target.data);
         let visSessionId = this.trackVisId;
         if (this.name && this.name && !this.hpotval) {
           const timeCreated = Date.now();

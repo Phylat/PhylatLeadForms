@@ -43,7 +43,11 @@
         this.$emit("prevStep", i);
       },
       optionAction(i) {
-        this.$emit("clickAction", i);
+        if (i === "save") {
+          this.$emit("saveAction", i, this.sdata);
+        } else {
+          this.$emit("clickAction", i);
+        }
       },
       submitForm() {
         this.$emit("submitForm");
