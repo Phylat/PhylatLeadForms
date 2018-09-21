@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "wcbuildtemp": "vue-cli-service build --target wc --name my-custom-element ./src/main.js",
-    "wcbuild": "vue-cli-service build --target wc --name my-custom-element ./src/App.vue",
+    "wcbuild": "vue-cli-service build --target wc --name phy-form ./src/App.vue",
     "singlewebcomponent": "vue-cli-service build --target wc --name my-element src/views/SoftwareForm.vue"
   },
   "dependencies": {

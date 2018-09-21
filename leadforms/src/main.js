@@ -5,7 +5,7 @@ import App from './App.vue'
 //const fb = require('@/services/firebase/init.js');
 import './registerServiceWorker'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
 new Vue({
   //router,
