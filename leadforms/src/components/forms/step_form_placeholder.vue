@@ -38,12 +38,12 @@ export default {
       leadCategories: [
         {
           name: "Low",
-          targetScore: 5,
+          targetScore: 1,
           description: "Low value"
         },
         {
           name: "Medium",
-          targetScore: 10,
+          targetScore: 5,
           description: "Medium"
         },
         {
@@ -164,15 +164,7 @@ export default {
     sdataupz(u) {
       this.totScore = u;
     },
-    subForm(i) {
-      const totVal = Object.values(this.totScore);
-      const keyz = Object.keys(this.totScore);
-
-      const formdataz = alert(this.formData);
-      const keyzz = Object.keys(this.totScore);
-
-      let scoreCategories = this.leadCategories;
-
+    subForm() {
       // find sum of total score
       function sum(leadScore) {
         var sum = 0;
@@ -184,46 +176,23 @@ export default {
         return sum;
       }
 
-      let summed = sum(this.totScore);
-
-      //prob delete
-      var leadCategory = scoreCategories.map(function(scoreCategories) {
-        return scoreCategories.targetScore;
-      });
-
-      /* const closest = scoreCategories.filter(
-        scoreCategories => scoreCategories.targetScore >= summed
-      );
-      //const officersIds = officers.map(officer => officer.id);
-      */
-
-      // find closest number in targetscores
-      function closestCat(num, sumVal) {
-        var curr = sumVal[0].targetScore;
+      function closestCat(num, sum) {
+        var curr = sum[0];
         var diff = Math.abs(num - curr);
-        for (var val = 0; val < sumVal.length; val++) {
-          var newdiff = Math.abs(num - sumVal[val]);
+        for (var val = 0; val < sum.length; val++) {
+          var newdiff = Math.abs(num - sum[val]);
           if (newdiff < diff) {
             diff = newdiff;
-            curr = sumVal[val];
+            curr = sum[val];
           }
         }
         return curr;
       }
 
-      const closestScore = closestCat(summed, scoreCategories);
+      const summed = sum(this.totScore);
+      const closestScore = closestCat(summed, this.leadCategories);
 
-      alert(closestScore);
-      /*function animals.filter((animal) => {
-    return animal.size === "small"
-})*/
-
-      let finalCategoryResult = scoreCategories.filter(resultScore => {
-        return resultScore.targetScore === closestScore;
-      });
-      console.log(finalCategoryResult);
-      //alert(summed);
-      //alert(totVal);
+      console.log(closestScore);
     },
     prev() {
       this.currentStep--;
