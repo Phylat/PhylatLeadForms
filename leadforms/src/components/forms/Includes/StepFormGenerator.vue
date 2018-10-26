@@ -8,9 +8,11 @@
 </template>
 
 <script>
-import NumberInput from "@/components/forms/Includes/NumberInput";
-import SelectList from "@/components/forms/Includes/SelectList";
-import TextInput from "@/components/forms/Includes/TextInput";
+import NumberInput from "@/components/UI/StepForms/Includes/NumberInput";
+import SelectList from "@/components/UI/StepForms/Includes/SelectList";
+import TextInput from "@/components/UI/StepForms/Includes/TextInput";
+
+@/components/UI/StepForms/Includes/StepFormGenerator.vue
 export default {
   name: "StepFormGenerator",
   components: { NumberInput, SelectList, TextInput },
